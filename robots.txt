@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ferramentas-online.com/sitemap.xml
+
+# Principais páginas
+Allow: /#business-names
+Allow: /#loan-calculator
+Allow: /#bmi-calculator
+
+# Evitar indexação de arquivos de desenvolvimento
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json
+Disallow: /*.js.map
+
