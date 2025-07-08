@@ -132,7 +132,7 @@ const LoanCalculator = () => {
               {/* Taxa de Juros */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Taxa de Juros (% ao ano)
+                  Taxa de Juros (% ao mês)
                 </label>
                 <div className="relative">
                   <input
