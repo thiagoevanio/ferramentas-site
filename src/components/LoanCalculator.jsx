@@ -6,7 +6,7 @@ import { calculateLoan, validateLoanData, formatCurrency, formatNumber } from '@
 const LoanCalculator = () => {
   const [formData, setFormData] = useState({
     principal: '',
-    annualRate: '',
+    monthlyRate: '',
     months: ''
   })
   const [result, setResult] = useState(null)
@@ -30,10 +30,10 @@ const LoanCalculator = () => {
 
   const handleCalculate = () => {
     const principal = parseFloat(formData.principal)
-    const annualRate = parseFloat(formData.annualRate)
+    const monthlyRate = parseFloat(formData.monthlyRate)
     const months = parseInt(formData.months)
 
-    const validationErrors = validateLoanData(principal, annualRate, months)
+    const validationErrors = validateLoanData(principal, monthlyRate, months)
     
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
@@ -41,7 +41,7 @@ const LoanCalculator = () => {
       return
     }
 
-    const calculation = calculateLoan(principal, annualRate, months)
+    const calculation = calculateLoan(principal, monthlyRate, months)
     setResult(calculation)
     setErrors({})
   }
@@ -49,7 +49,7 @@ const LoanCalculator = () => {
   const handleReset = () => {
     setFormData({
       principal: '',
-      annualRate: '',
+      monthlyRate: '',
       months: ''
     })
     setResult(null)
@@ -138,17 +138,17 @@ const LoanCalculator = () => {
                   <input
                     type="number"
                     step="0.01"
-                    value={formData.annualRate}
-                    onChange={(e) => handleInputChange('annualRate', e.target.value)}
-                    placeholder="12.5"
+                    value={formData.monthlyRate}
+                    onChange={(e) => handleInputChange('monthlyRate', e.target.value)}
+                    placeholder="2.5"
                     className={`w-full px-4 py-3 pl-12 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-lg ${
-                      errors.annualRate ? 'border-red-500' : 'border-gray-300'
+                      errors.monthlyRate ? 'border-red-500' : 'border-gray-300'
                     }`}
                   />
                   <Percent className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                 </div>
-                {errors.annualRate && (
-                  <p className="mt-1 text-sm text-red-600">{errors.annualRate}</p>
+                {errors.monthlyRate && (
+                  <p className="mt-1 text-sm text-red-600">{errors.monthlyRate}</p>
                 )}
               </div>
 
