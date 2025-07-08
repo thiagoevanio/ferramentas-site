@@ -1,8 +1,8 @@
 // Cálculos de Empréstimo
-export const calculateLoan = (principal, annualRate, months) => {
-  const monthlyRate = annualRate / 100 / 12
+export const calculateLoan = (principal, monthlyRate, months) => {
+  const monthlyRateDecimal = monthlyRate / 100
   
-  if (monthlyRate === 0) {
+  if (monthlyRateDecimal === 0) {
     return {
       monthlyPayment: principal / months,
       totalPayment: principal,
@@ -12,8 +12,8 @@ export const calculateLoan = (principal, annualRate, months) => {
   }
   
   // Fórmula PMT: P * [r(1+r)^n] / [(1+r)^n - 1]
-  const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / 
-                        (Math.pow(1 + monthlyRate, months) - 1)
+  const monthlyPayment = principal * (monthlyRateDecimal * Math.pow(1 + monthlyRateDecimal, months)) / 
+                        (Math.pow(1 + monthlyRateDecimal, months) - 1)
   
   const totalPayment = monthlyPayment * months
   const totalInterest = totalPayment - principal
@@ -23,7 +23,7 @@ export const calculateLoan = (principal, annualRate, months) => {
   let remainingBalance = principal
   
   for (let month = 1; month <= months; month++) {
-    const interestPayment = remainingBalance * monthlyRate
+    const interestPayment = remainingBalance * monthlyRateDecimal
     const principalPayment = monthlyPayment - interestPayment
     remainingBalance -= principalPayment
     
@@ -45,7 +45,7 @@ export const calculateLoan = (principal, annualRate, months) => {
 }
 
 // Validação de dados do empréstimo
-export const validateLoanData = (principal, annualRate, months) => {
+export const validateLoanData = (principal, monthlyRate, months) => {
   const errors = {}
   
   if (!principal || principal <= 0) {
@@ -54,10 +54,10 @@ export const validateLoanData = (principal, annualRate, months) => {
     errors.principal = 'Valor máximo é R$ 10.000.000'
   }
   
-  if (annualRate === null || annualRate === undefined || annualRate < 0) {
-    errors.annualRate = 'Taxa deve ser maior ou igual a zero'
-  } else if (annualRate > 100) {
-    errors.annualRate = 'Taxa máxima é 100% ao ano'
+  if (monthlyRate === null || monthlyRate === undefined || monthlyRate < 0) {
+    errors.monthlyRate = 'Taxa deve ser maior ou igual a zero'
+  } else if (monthlyRate > 20) {
+    errors.monthlyRate = 'Taxa máxima é 20% ao mês'
   }
   
   if (!months || months <= 0) {
